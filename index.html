@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./assets/img/logo-site.png">
+  <title>Cartas para meu amor</title>
+  <link rel="stylesheet" href="./assets/css/app.css" />
+  <script src="./assets/js/app.js" defer></script>
+</head>
+
+<body>
+  <audio id="bg-music" autoplay>
+    <source src="assets/music/musica-raponzel.mp3" type="audio/ogg">
+    <source src="horse.mp3" type="audio/mpeg">
+   
+  </audio>
+
+  <div class="background-1"></div>
+  <div class="background-2"></div>
+  <div class="background-3">
+    <div class="cta">
+      <button class="btn" id="yes">
+        <span class="btn-text-one">Siim</span>
+        <span class="btn-text-two">🥳🥰</span>
+      </button>
+      <button class="btn no" id="no">
+        <span class="btn-text-one">Não</span>
+        <span class="btn-text-two">😑</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    window.addEventListener('load', function () {
+      const audio = document.getElementById('bg-music');
+      const yesButton = document.getElementById('yes');
+      const noButton = document.getElementById('no');
+      const background2 = document.querySelector('.background-2');
+      
+      let alertShown = false; // Variável para verificar se o alerta já foi exibido
+
+      // Exibe um prompt para o nome do usuário
+      const username = prompt("Digite seu nome:");
+
+      if (username === null || username.trim() === "" || username.trim() !== "Sarah") {
+        // Usuário não forneceu o nome correto, redireciona para a página especificada
+        window.location.href = 'https://www.dicio.com.br/enxerido/';
+      } else {
+        // Usuário forneceu o nome correto
+        // Exibe uma caixa de confirmação com SweetAlert2
+        Swal.fire({
+          title: 'Antes de começar',
+          text: 'Você é linda demais. Te amo!',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Usuário clicou em OK, continue com a página
+          console.log("Nome fornecido e confirmação recebida.");
+        });
+      }
+
+      noButton.addEventListener('click', function () {
+        Swal.fire({
+          title: 'Ei!',
+          text: 'Não é pra apertar aqui não oxe',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+      });
+
+      // Event listener para o hover sobre a div com a classe 'background-2'
+      background2.addEventListener('mouseover', function () {
+        if (!alertShown) { // Verifica se o alerta já foi exibido
+          Swal.fire({
+            title: 'Oi meu amor!',
+            html: `
+              <p>Quero que saiba o quanto você é especial para mim. Fiz isso com todo o carinho, só para te lembrar que você é incrível e que me faz muito feliz de tantas maneiras. Isso é apenas um pequeno gesto, pois o quanto eu quero demonstrar meu amor por você é muito pequeno para demonstrar em palavras, então estou tentando te mostrar um pouco nesse gesto. 💖</p>
+            `,
+            icon: 'success',
+            showCloseButton: true, // Exibe o botão "X" para fechar
+            confirmButtonText: '🥰'
+          });
+          alertShown = true; // Marca que o alerta foi exibido
+        }
+      });
+
+      // Tenta reproduzir a música ao carregar a página
+      audio.play().catch(error => {
+        console.log("Autoplay bloqueado pelo navegador. O usuário precisa interagir.");
+      });
+
+      // Garante que a música comece a tocar quando o usuário clicar em qualquer parte da página
+      document.body.addEventListener('click', function () {
+        audio.play();
+      });
+    });
+  </script>
+</body>
+
+</html>
