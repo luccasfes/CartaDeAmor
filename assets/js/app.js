@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 audio.pause(); // Pausa a música
                             
                                 Swal.fire({
-                                    title: `Cenas especiais que me lembram você`,
+                                    title: `Cenas especiais que me lembram você, e que te fara sorrir.🥰`,
                                     html: `<video width="300" height="300" controls autoplay>
                                               <source src="${videos[index]}" type="video/mp4">
                                               Seu navegador não suporta o elemento de vídeo.
