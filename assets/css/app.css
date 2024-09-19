@@ -181,4 +181,17 @@ body {
     width: 100px;
     height: 100px;
   }
+  .custom-swal-popup {
+    border: 2px solid black; 
+}
+.custom-swal-popup {
+  background-color: black; 
+  color: rgb(255, 255, 255); 
+}
+
+.custom-swal-overlay {
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo da sobreposição */
+}
+
+
 }
