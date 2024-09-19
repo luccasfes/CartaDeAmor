@@ -11,12 +11,17 @@
 </head>
 
 <body>
-  <audio id="bg-music" autoplay>
+  <audio id="bg-music">
     <source src="assets/music/musica-raponzel.mp3" type="audio/ogg">
     <source src="horse.mp3" type="audio/mpeg">
-   
   </audio>
-
+  
+  <script>
+    window.addEventListener('beforeunload', function() {
+      localStorage.setItem('musicPaused', 'true'); // Armazena o estado da música
+    });
+  </script>
+  
   <div class="background-1"></div>
   <div class="background-2"></div>
   <div class="background-3">
@@ -57,7 +62,9 @@
           icon: 'info',
           confirmButtonText: 'OK'
         }).then(() => {
-          // Usuário clicou em OK, continue com a página
+          audio.play().catch(error => {
+            console.log("Autoplay bloqueado pelo navegador. O usuário precisa interagir.");
+          });
           console.log("Nome fornecido e confirmação recebida.");
         });
       }
@@ -76,28 +83,23 @@
         if (!alertShown) { // Verifica se o alerta já foi exibido
           Swal.fire({
             title: 'Oi meu amor!',
-            html: `
-              <p>Quero que saiba o quanto você é especial para mim. Fiz isso com todo o carinho, só para te lembrar que você é incrível e que me faz muito feliz de tantas maneiras. Isso é apenas um pequeno gesto, pois o quanto eu quero demonstrar meu amor por você é muito pequeno para demonstrar em palavras, então estou tentando te mostrar um pouco nesse gesto. 💖</p>
-            `,
+            html: `Quero que saiba o quanto você é especial para mim... 💖`,
             icon: 'success',
-            showCloseButton: true, // Exibe o botão "X" para fechar
+            showCloseButton: true,
             confirmButtonText: '🥰'
           });
           alertShown = true; // Marca que o alerta foi exibido
         }
       });
 
-      // Tenta reproduzir a música ao carregar a página
-      audio.play().catch(error => {
-        console.log("Autoplay bloqueado pelo navegador. O usuário precisa interagir.");
-      });
-
-      // Garante que a música comece a tocar quando o usuário clicar em qualquer parte da página
-      document.body.addEventListener('click', function () {
-        audio.play();
-      });
+      // Verifica se a música deve ser pausada
+      if (localStorage.getItem('musicPaused') === 'true') {
+        audio.pause(); // Pausa a música
+        localStorage.removeItem('musicPaused'); // Remove a chave após usá-la
+      }
     });
   </script>
+
 </body>
 
 </html>
